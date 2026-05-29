@@ -1,0 +1,15 @@
+rules:
+  - id: detect-eval-injection
+    patterns:
+      - pattern: eval($INPUT)
+      - pattern-not: eval("...")
+    message: >
+      Dangerous use of eval() with dynamic input detected.
+      eval() executes arbitrary code and can lead to Remote Code Execution (RCE).
+      Never pass user-controlled input to eval().
+    languages: [javascript]
+    severity: ERROR
+    metadata:
+      category: security
+      cwe: CWE-95
+      author: Frida Agaraj

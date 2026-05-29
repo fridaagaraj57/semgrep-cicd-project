@@ -1,0 +1,17 @@
+rules:
+  - id: detect-sql-injection
+    patterns:
+      - pattern: $QUERY = $PREFIX + $INPUT
+      - pattern-inside: |
+          app.$METHOD($PATH, function($REQ, $RES) {
+            ...
+          })
+    message: >
+      SQL Injection risk: user input is concatenated directly into a query string.
+      Use parameterized queries instead.
+    languages: [javascript]
+    severity: ERROR
+    metadata:
+      category: security
+      cwe: CWE-89
+      author: Frida Agaraj

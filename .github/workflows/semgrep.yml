@@ -1,0 +1,21 @@
+﻿name: Semgrep Security Scan
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run custom Semgrep rules
+        run: semgrep --config custom-rules/ routes/ --error
+
+      - name: Run Semgrep JavaScript ruleset
+        run: semgrep --config p/javascript routes/
