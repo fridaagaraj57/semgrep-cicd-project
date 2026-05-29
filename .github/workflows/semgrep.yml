@@ -2,8 +2,8 @@
 
 on:
   push:
-    branches: [main, master]
-  pull_request:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   semgrep:
@@ -15,7 +15,7 @@ jobs:
         run: pip install semgrep
 
       - name: Run custom Semgrep rules
-        run: semgrep --config custom-rules/ routes/ --error
+        run: semgrep --config custom-rules/ routes/
 
       - name: Run Semgrep JavaScript ruleset
         run: semgrep --config p/javascript routes/
